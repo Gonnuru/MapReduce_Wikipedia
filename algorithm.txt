@@ -1,0 +1,10 @@
+#ALGORITHM
+
+Step-1: Using the delimiter as "\\s" split all the words in the file.
+Step-2: Store all the words resulted after splitting in the Step-1 in a String Array .
+Step-3: Parse all the words in the file.
+Step-4: Now, gather pair of consecutive words.
+Step-5: Now place all the words in a key value pair in the first step of the reducer, where words pair is key whose corresponding value is set to 1.
+Step-6: Mapper will bring together the same pair of words.
+Step-7: Reducer uses Tree set to store word pair as key and the frequency as value.
+Step-8: Extract the top 100 word pair and the output is written to a file.
