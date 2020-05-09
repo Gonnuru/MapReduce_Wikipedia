@@ -1,0 +1,54 @@
+﻿#FULLY DISTRIBUTED MODE
+#NAME NODE CONFIG
+
+etc/hadoop/core-site.xml
+
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://ec2-18-217-59-170.us-east-2.compute.amazonaws.com</value>
+    </property>
+	<property>
+        <name>hadoop.tmp.dir</name>
+        <value>/home/ubuntu/hdfstmp</value>
+    </property>
+</configuration>
+
+
+etc/hadoop/hdfs-site.xml
+
+<configuration>
+    <property>
+        <name>dfs.replication</name>
+        <value>1</value>
+    </property>
+	<property>
+        <name>dfs.permissions</name>
+        <value>false</value>
+    </property>
+</configuration>
+
+
+etc/hadoop/mapred-site.xml
+
+<configuration>
+    <property>
+        <name>mapred.job.tracker</name>
+        <value>hdfs://ec2-18-189-193-160.us-east-2.compute.amazonaws.com</value>
+    </property>
+</configuration>
+
+
+
+#COMMANDS
+hdfs namenode –format
+HADOOP_HOME/sbin/start-dfs.sh
+HADOOP_HOME/sbin/start-yarn.sh
+HADOOP_HOME/sbin/mr-jobhistory-daemon.sh start historyserver
+
+hdfs dfs -mkdir /relativeFrequency
+hdfs dfs -mkdir /relativeFrequency/Input
+hdfs dfs -put ‘/home/ubuntu/Desktop/relativeFrequency/Input/100KWikiText.txt’ /relativeFrequency/Input
+
+hadoop jar '/home/ubuntu/Desktop/relativeFrequency/relativeFrequency.jar' relativeFrequency /relativeFrequency/Input /relativeFrequency/Output
+hdfs dfs –cat /relativeFrequency/Output/part-r-00000
